@@ -1,10 +1,47 @@
 version: 2.1
 
-jobs:
-  build:
-    docker:
-      - image: circleci/node:14.15.5
+defaults: &defaults
+  docker:
+    # Choose the version of Node you want here
+    - image: circleci/node:14.15.5
+  working_directory: ~/repo
 
+jobs:
+  setup:
+    <<: *defaults
     steps:
-      - run: npm install
-      - run: npm test
+      - checkout
+      - restore-cache:
+          name: Restore node modules
+          keys:
+            - v1-npm-{{ .Branch }}-{{ checksum "package.lock.json" }}
+            - v1-npm-
+      - run:
+        name: Install Dependencies
+        command: npm install
+      - save_cache:
+          name: Save node modules in cache
+          key: v1-npm-{{ .Branch }}-{{ checksum "package.lock.json" }}
+          paths:
+            - node_modules/
+
+  tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore-cache:
+          name: Restore node modules
+          keys:
+            - v1-npm-{{ .Branch }}-{{ checksum "package.lock.json" }}
+            - v1-npm-
+      - run:
+        name: Run tests
+        command: npm test
+
+workflows:
+  test_the_apk:
+    jobs:
+      - setup
+      - tests:
+          requires:
+            - setup
