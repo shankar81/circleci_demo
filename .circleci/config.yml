@@ -1,49 +1,61 @@
-version: 2.1
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
 
 defaults: &defaults
   docker:
     # Choose the version of Node you want here
-    - image: circleci/node:14.15.5
+    - image: circleci/node:10.11
   working_directory: ~/repo
 
+mac: &mac
+  macos:
+    xcode: "10.1.0"
+  working_directory: ~/repo
+  environment:
+    FL_OUTPUT_DIR: output
+  shell: /bin/bash --login -o pipefail
+
+version: 2
 jobs:
   setup:
     <<: *defaults
     steps:
       - checkout
-      - restore-cache:
-          name: Restore node modules
+      - restore_cache:
           keys:
-            - v1-npm-{{ .Branch }}-{{ checksum "package.lock.json" }}
-            - v1-npm-
+            - v1-dependencies-node-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-node-
       - run:
-        name: Install Dependencies
-        command: npm install
+          name: Install dependencies
+          command: NOYARNPOSTINSTALL=1 yarn install
       - save_cache:
-          name: Save node modules in cache
-          key: v1-npm-{{ .Branch }}-{{ checksum "package.lock.json" }}
+          name: Save node modules
           paths:
-            - node_modules/
+            - node_modules
+          key: v1-dependencies-node-{{ checksum "package.json" }}
 
   tests:
     <<: *defaults
     steps:
       - checkout
-      - restore-cache:
-          name: Restore node modules
+      - restore_cache:
+          name: Restore npm cache
           keys:
-            - v1-npm-{{ .Branch }}-{{ checksum "package.lock.json" }}
-            - v1-npm-
+            - v1-dependencies-node-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-node-
       - run:
-        name: Run tests
-        command: npm test
+          name: Run tests
+          command: yarn test # this command will be added to/found in your package.json scripts
 
 workflows:
-  test_the_apk:
+  version: 2
+  test_and_release:
     jobs:
       - setup
       - tests:
           requires:
             - setup
-
-
