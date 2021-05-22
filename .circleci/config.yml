@@ -2,7 +2,7 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-
+version: 2.1
 defaults: &defaults
   docker:
     # Choose the version of Node you want here
@@ -52,7 +52,6 @@ jobs:
           command: yarn test # this command will be added to/found in your package.json scripts
 
 workflows:
-  version: 2
   test_and_release:
     jobs:
       - setup
