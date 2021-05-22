@@ -52,6 +52,7 @@ jobs:
           command: yarn test # this command will be added to/found in your package.json scripts
 
 workflows:
+  version: 2
   test_and_release:
     jobs:
       - setup
