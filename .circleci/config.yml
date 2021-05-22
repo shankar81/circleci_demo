@@ -8,14 +8,6 @@ defaults: &defaults
     - image: circleci/node:14.15.5
   working_directory: ~/repo
 
-mac: &mac
-  macos:
-    xcode: "10.1.0"
-  working_directory: ~/repo
-  environment:
-    FL_OUTPUT_DIR: output
-  shell: /bin/bash --login -o pipefail
-
 version: 2
 jobs:
   setup:
@@ -52,9 +44,13 @@ jobs:
 
 workflows:
   version: 2
-  test_and_release:
+  build-test-and-hold:
     jobs:
       - setup
       - tests:
           requires:
             - setup
+      - hold:
+          type: approval
+          requires:
+            - tests
