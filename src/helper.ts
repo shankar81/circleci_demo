@@ -12,7 +12,6 @@ export function calculate(
   if (isNaN(first) || isNaN(second)) {
     return null;
   }
-
   switch (operation) {
     case 'ADD':
       return first + second;
