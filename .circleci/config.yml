@@ -75,8 +75,12 @@ workflows:
             - setup
       - android-alpha-hold:
           type: approval
+          requires:
+            - "tests"
       - android-beta-hold:
           type: approval
+          requires:
+            - "tests"
       - android-alpha:
           requires:
             - android-alpha-hold
