@@ -25,7 +25,7 @@ Runs all the tests
 ```
 fastlane android alpha
 ```
-Submit a new Alpha Build
+Submit AAB file to alpha release
 ### android beta
 ```
 fastlane android beta

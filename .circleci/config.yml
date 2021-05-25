@@ -60,25 +60,30 @@ jobs:
 
   android-beta:
     <<: *defaults
-    working_directory: ~/repo/android
     steps:
       - checkout:
           path: ~/repo
       - restore_cache:
-          key: bundle-v2-{{ checksum "Gemfile" }}
+          key: bundle-v2-{{ checksum "android/Gemfile" }}
       - run: pwd
       - run:
           name: Installing bundles
           command: bundle install --path vendor/bundle
+          working_directory: android
       - save_cache:
-          key: bundle-v2-{{ checksum "Gemfile" }}
+          key: bundle-v2-{{ checksum "android/Gemfile" }}
           paths:
             - vendor/bundle
-      - run: chmod +x gradlew
-      - run: ./gradlew clean
+      - run:
+          command: chmod +x gradlew
+          working_directory: android
+      - run:
+          command: ./gradlew clean
+          working_directory: android
       - run:
           name: Fastlane beta task
           command: bundle exec fastlane android beta
+          working_directory: android
 
 workflows:
   version: 2
