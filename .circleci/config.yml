@@ -28,7 +28,6 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - restore_cache:
           key: bundle-v1-{{ checksum "android/Gemfile.lock" }}
-      - run: gem install bundler
       - run: bundle check || bundle install --path vendor/bundle
       - save_cache:
           key: bundle-v1-{{ checksum "android/Gemfile.lock" }}
