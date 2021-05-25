@@ -4,10 +4,9 @@
 #
 
 defaults: &defaults
-    machine:
-      image: android:202102-01
-    working_directory: ~/repo
-
+  machine:
+    image: android:202102-01
+  working_directory: ~/repo
 
 version: 2
 jobs:
@@ -28,7 +27,10 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - restore_cache:
           key: bundle-v1-{{ checksum "android/Gemfile" }}
-      - run: cd android || bundle check || bundle install --path vendor/bundle
+      - run: |
+          cd android
+          bundle check
+          bundle install --path vendor/bundle
       - save_cache:
           key: bundle-v1-{{ checksum "android/Gemfile" }}
           paths:
@@ -51,9 +53,10 @@ jobs:
       - checkout
       - restore_cache:
           key: bundle-v1-{{ checksum "android/Gemfile" }}
-      - run:
-          name: Fastlane alpha track
-          command: cd android || bundle exec fastlane alpha
+      - run: cd android
+      - run: ls
+      - run: pwd
+      - run: bundle exec fastlane alpha
 
   android-beta:
     <<: *defaults
@@ -61,9 +64,8 @@ jobs:
       - checkout
       - restore_cache:
           key: bundle-v1-{{ checksum "android/Gemfile" }}
-      - run:
-          name: Fastlane promote to beta track
-          command: cd android || bundle exec fastlane beta
+      - run: pwd
+      - run: bundle exec fastlane beta
 
 workflows:
   version: 2
