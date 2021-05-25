@@ -64,7 +64,7 @@ jobs:
           command: source ../circleci/circle_env.sh && fetchKeystore
       - run:
           name: Create Gradle Properties
-          command: source .circleci/circle_env.sh && copyEnvVarsToGradleProperties
+          command: source ../circleci/circle_env.sh && copyEnvVarsToGradleProperties
       - run:
           name: Fastlane alpha task
           command: bundle exec fastlane android alpha
