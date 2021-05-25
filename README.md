@@ -1,2 +1,4 @@
 # circleci_demo
-Learning circleci with React Native for CI/CD
+
+Automating Continuous Development and Continuous Deployment with circleci and fastlane
+
