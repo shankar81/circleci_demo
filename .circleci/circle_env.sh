@@ -4,7 +4,7 @@ function fetchKeystore {
 
 function copyEnvVarsToGradleProperties {
     DIR="$(pwd)"
-    GRADLE_PROPERTIES=${DIR}"/andorid/gradle.properties"
+    GRADLE_PROPERTIES=${DIR}"/android/gradle.properties"
     export GRADLE_PROPERTIES
     echo "Gradle Properties should exist at $GRADLE_PROPERTIES"
 
