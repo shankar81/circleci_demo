@@ -65,11 +65,11 @@ function Calculator() {
         </Picker>
       </View>
       <Button title="Evaluate" onPress={onCalculate} />
-      {result && result !== '' && (
+      {result && result !== '' ? (
         <View style={styles.result}>
           <Text>Result: {result}</Text>
         </View>
-      )}
+      ) : null}
     </View>
   );
 }

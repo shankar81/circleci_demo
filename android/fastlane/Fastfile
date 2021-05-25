@@ -21,18 +21,20 @@ platform :android do
     gradle(task: "test")
   end
 
-  desc "Submit a new Beta Build to Crashlytics Beta"
-  lane :beta do
-    gradle(task: "clean assembleRelease")
-    crashlytics
-  
+  desc "Submit AAB file to alpha release"
+  lane :alpha do
+    before_all do
+      setup_circle_ci
+    end
+    gradle(task: "bundle", build_type: "Release")
+    upload_to_play_store(track: "alpha", aab: "app/build/outputs/bundle/release/app-release.aab")
+
     # sh "your_script.sh"
     # You can also use other beta testing services here
   end
 
-  desc "Deploy a new version to the Google Play"
-  lane :deploy do
-    gradle(task: "clean assembleRelease")
-    upload_to_play_store
+  desc "Promote alpha to beta"
+  lane :beta do
+    upload_to_play_store(track: "alpha", track_promote_to: "beta")
   end
 end
