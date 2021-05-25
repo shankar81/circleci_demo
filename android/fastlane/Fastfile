@@ -27,7 +27,7 @@ platform :android do
       setup_circle_ci
     end
     gradle(task: "bundle", build_type: "Release")
-    upload_to_play_store(track: "alpha", aab: "app/build/outputs/bundle/release/app-release.aab")
+    # upload_to_play_store(track: "alpha", aab: "app/build/outputs/bundle/release/app-release.aab")
 
     # sh "your_script.sh"
     # You can also use other beta testing services here
@@ -35,6 +35,6 @@ platform :android do
 
   desc "Promote alpha to beta"
   lane :beta do
-    upload_to_play_store(track: "alpha", track_promote_to: "beta")
+    # upload_to_play_store(track: "alpha", track_promote_to: "beta")
   end
 end
