@@ -45,14 +45,15 @@ jobs:
           path: ~/repo
       - run: pwd
       - restore_cache:
-          key: bundle-v2-{{ checksum "android/Gemfile" }}
+          key: bundle-v2-{{ checksum "Gemfile" }}
       - run:
           name: Installing bundles
           command: bundle install --path vendor/bundle
       - save_cache:
-          key: bundle-v2-{{ checksum "android/Gemfile" }}
+          key: bundle-v2-{{ checksum "Gemfile" }}
           paths:
             - vendor/bundle
+      - run: chmod +x gradlew
       - run:
           name: Fastlane alpha task
           command: bundle exec fastlane alpha
@@ -64,15 +65,16 @@ jobs:
       - checkout:
           path: ~/repo
       - restore_cache:
-          key: bundle-v2-{{ checksum "android/Gemfile" }}
+          key: bundle-v2-{{ checksum "Gemfile" }}
       - run: pwd
       - run:
           name: Installing bundles
           command: bundle install --path vendor/bundle
       - save_cache:
-          key: bundle-v2-{{ checksum "android/Gemfile" }}
+          key: bundle-v2-{{ checksum "Gemfile" }}
           paths:
             - vendor/bundle
+      - run: chmod +x gradlew
       - run:
           name: Fastlane beta task
           command: bundle exec fastlane beta
