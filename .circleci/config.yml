@@ -27,10 +27,10 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - restore_cache:
-          key: bundle-v1-{{ checksum "android/Gemfile.lock" }}
+          key: bundle-v1-{{ checksum "android/Gemfile" }}
       - run: bundle check || bundle install --path vendor/bundle
       - save_cache:
-          key: bundle-v1-{{ checksum "android/Gemfile.lock" }}
+          key: bundle-v1-{{ checksum "android/Gemfile" }}
           paths:
             - vendor/bundle
 
@@ -50,7 +50,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: bundle-v1-{{ checksum "Gemfile.lock" }}
+          key: bundle-v1-{{ checksum "Gemfile" }}
       - run:
           name: Fastlane alpha track
           command: bundle exec fastlane alpha
@@ -60,7 +60,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: bundle-v1-{{ checksum "Gemfile.lock" }}
+          key: bundle-v1-{{ checksum "Gemfile" }}
       - run:
           name: Fastlane promote to beta track
           command: bundle exec fastlane beta
