@@ -1,10 +1,10 @@
 function fetchKeystore {
-    sudo gpg --passphrase ${KEYSTORE_ENCRYPTION_KEY} --pinentry-mode loopback -o "app/$KEYSTORE_FILE" -d "app/$KEYSTORE_FILE.gpg"
+    sudo gpg --passphrase ${KEYSTORE_ENCRYPTION_KEY} --pinentry-mode loopback -o "android/app/$KEYSTORE_FILE" -d "android/app/$KEYSTORE_FILE.gpg"
 }
 
 function copyEnvVarsToGradleProperties {
     DIR="$(pwd)"
-    GRADLE_PROPERTIES=${DIR}"/gradle.properties"
+    GRADLE_PROPERTIES=${DIR}"/andorid/gradle.properties"
     export GRADLE_PROPERTIES
     echo "Gradle Properties should exist at $GRADLE_PROPERTIES"
 
