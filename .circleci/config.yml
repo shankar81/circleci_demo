@@ -56,8 +56,6 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "../package.json" }}
-      - restore_cache:
-          key: bundle-v2-{{ checksum "Gemfile" }}
       - run: chmod +x gradlew
       - run:
           name: Fetch keystore
@@ -67,6 +65,9 @@ jobs:
           name: Create Gradle Properties
           command: source ./.circleci/circle_env.sh && copyEnvVarsToGradleProperties
           working_directory: ~/repo
+      - run: pwd
+      - restore_cache:
+          key: bundle-v2-{{ checksum "Gemfile" }}
       - run:
           name: Fastlane alpha task
           command: bundle exec fastlane android alpha
