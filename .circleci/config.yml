@@ -61,11 +61,11 @@ jobs:
       - run: chmod +x gradlew
       - run:
           name: Fetch keystore
-          command: source .circleci/circle_env.sh && fetchKeystore
+          command: source ./.circleci/circle_env.sh && fetchKeystore
           working_directory: ~/repo
       - run:
           name: Create Gradle Properties
-          command: source .circleci/circle_env.sh && copyEnvVarsToGradleProperties
+          command: source ./.circleci/circle_env.sh && copyEnvVarsToGradleProperties
           working_directory: ~/repo
       - run:
           name: Fastlane alpha task
