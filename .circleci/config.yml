@@ -3,14 +3,10 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 
-orbs:
-  android: circleci/android@1.0.3
-
 defaults: &defaults
     machine:
       image: android:202102-01
     working_directory: ~/repo
-
 
 
 version: 2
@@ -43,6 +39,9 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: Run tests
           command: npm test # this command will be added to/found in your package.json scripts
