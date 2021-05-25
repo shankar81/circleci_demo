@@ -2,11 +2,14 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
+
+orbs:
+  android: circleci/android@1.0.3
+
 defaults: &defaults
-  docker:
-    # Choose the version of Node you want here
-    - image: circleci/android@1.0.3
-  working_directory: ~/repo
+    machine:
+      image: android:202102-01
+  # working_directory: ~/repo
 
 ruby:
   docker:
