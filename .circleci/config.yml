@@ -69,21 +69,21 @@ workflows:
             - setup
       - android-alpha-hold:
           type: approval
-          filters:
-            tags:
-              only: /^v.*/
-              branches:
-                ignore: /.*/
       - android-beta-hold:
           type: approval
-          filters:
-            tags:
-              only: /^v.*/
-              branches:
-                ignore: /.*/
       - android-alpha:
           requires:
             - android-alpha-hold
+          filters:
+            tags:
+              only: /^v.*/
+              branches:
+                ignore: /.*/
       - android-beta:
           requires:
             - android-beta-hold
+          filters:
+            tags:
+              only: /^v.*/
+              branches:
+                ignore: /.*/
