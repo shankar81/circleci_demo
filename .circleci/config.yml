@@ -50,7 +50,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: bundle-v1-{{ checksum "Gemfile" }}
+          key: bundle-v1-{{ checksum "android/Gemfile" }}
       - run:
           name: Fastlane alpha track
           command: bundle exec fastlane alpha
@@ -60,7 +60,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: bundle-v1-{{ checksum "Gemfile" }}
+          key: bundle-v1-{{ checksum "android/Gemfile" }}
       - run:
           name: Fastlane promote to beta track
           command: bundle exec fastlane beta
