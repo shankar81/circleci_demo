@@ -50,6 +50,8 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - restore_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
       - run:
           name: Fastlane alpha track
           command: bundle exec fastlane alpha
@@ -58,6 +60,8 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - restore_cache:
+          key: 1-gems-{{ checksum "Gemfile.lock" }}
       - run:
           name: Fastlane promote to beta track
           command: bundle exec fastlane beta
