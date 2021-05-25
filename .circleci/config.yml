@@ -87,7 +87,7 @@ jobs:
       - restore_cache:
           key: bundle-v2-{{ checksum "Gemfile" }}
       - run: chmod +x gradlew
-      - run: ./gradlew.
+      - run: ./gradlew clean
       - run:
           name: Fastlane beta task
           command: bundle exec fastlane android beta
