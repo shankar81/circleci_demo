@@ -69,6 +69,9 @@ jobs:
       - restore_cache:
           key: bundle-v2-{{ checksum "Gemfile" }}
       - run:
+          name: Installing bundles
+          command: bundle install --path vendor/bundle
+      - run:
           name: Fastlane alpha task
           command: bundle exec fastlane android alpha
 
