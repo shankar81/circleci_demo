@@ -77,13 +77,9 @@ workflows:
           filters:
             tags:
               only: /^v.*/
-              branches:
-                ignore: /.*/
       - android-beta:
           requires:
             - android-beta-hold
           filters:
             tags:
               only: /^v.*/
-              branches:
-                ignore: /.*/
