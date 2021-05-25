@@ -20,18 +20,18 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
       - run:
           name: Install dependencies
-          command: npm ci
+          command: npm i
       - save_cache:
           name: Save node modules
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - restore_cache:
-          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          key: bundle-v1-{{ checksum "android/Gemfile.lock" }}
       - run: gem install bundler
       - run: bundle check || bundle install --path vendor/bundle
       - save_cache:
-          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          key: bundle-v1-{{ checksum "android/Gemfile.lock" }}
           paths:
             - vendor/bundle
 
@@ -51,7 +51,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          key: bundle-v1-{{ checksum "Gemfile.lock" }}
       - run:
           name: Fastlane alpha track
           command: bundle exec fastlane alpha
@@ -61,7 +61,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: 1-gems-{{ checksum "Gemfile.lock" }}
+          key: bundle-v1-{{ checksum "Gemfile.lock" }}
       - run:
           name: Fastlane promote to beta track
           command: bundle exec fastlane beta
