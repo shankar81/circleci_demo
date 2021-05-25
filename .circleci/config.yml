@@ -54,10 +54,9 @@ jobs:
       - checkout
       - restore_cache:
           key: bundle-v1-{{ checksum "android/Gemfile" }}
-      - run: cd android
-      - run: ls
-      - run: pwd
-      - run: bundle exec fastlane alpha
+      - run: |
+          cd android
+          bundle exec fastlane alpha
 
   android-beta:
     <<: *defaults
@@ -65,8 +64,9 @@ jobs:
       - checkout
       - restore_cache:
           key: bundle-v1-{{ checksum "android/Gemfile" }}
-      - run: pwd
-      - run: bundle exec fastlane beta
+      - run: |
+          cd android
+          bundle exec fastlane beta
 
 workflows:
   version: 2
