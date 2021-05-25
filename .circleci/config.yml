@@ -27,6 +27,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - restore_cache:
           key: bundle-v1-{{ checksum "android/Gemfile" }}
+      - run: pwd
       - run: |
           cd android
           bundle check
